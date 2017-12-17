@@ -5,6 +5,7 @@ import random
 import collections
 import time
 import nltk
+import re
 
 start_time = time.time()
 def elapsed(sec):
@@ -29,11 +30,11 @@ def read_data(fname):
     lines = [line for line in content]
     final_content = []
     for i in lines:
-        print(i)
         line_content = nltk.word_tokenize(str(i))
         line_content = [line_content[i].split() for i in range(len(line_content))]
         final_content += line_content
-        final_content += [r'\n']
+        final_content += [' ']
+    print(final_content)
     content = np.array([i[0] for i in final_content])
     content = np.reshape(content, [-1, ])
     return content
@@ -56,12 +57,12 @@ vocab_size = len(dictionary)
 
 # Parameters
 learning_rate = 0.001
-training_iters = 1000000
+training_iters = 100000
 display_step = 1000
-n_input = 3
+n_input = 8
 
 # number of units in RNN cell
-n_hidden = 4096
+n_hidden = 1024
 
 # tf Graph input
 x = tf.placeholder("float", [None, n_input, 1])
